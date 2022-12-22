@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "886510659088",
+    "firebase_url": "https://dry-cleaning-b7a6b-default-rtdb.firebaseio.com",
+    "project_id": "dry-cleaning-b7a6b",
+    "storage_bucket": "dry-cleaning-b7a6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886510659088:android:1680567d098f0d8458cc95",
+        "android_client_info": {
+          "package_name": "com.app.dry_cleaning"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "886510659088-mf7g2ms0qnkh90ucqnfmao5ir38ci1oj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dry_cleaning",
+            "certificate_hash": "50580f84d9f73627d5861bc63d8b87e50ecf1a61"
+          }
+        },
+        {
+          "client_id": "886510659088-hba6ppg80tco7q00e08a6j7s5f8jfs35.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-3Cp4CEYEXO8AMM_imohZc2IVV6q4g-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "886510659088-hba6ppg80tco7q00e08a6j7s5f8jfs35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
