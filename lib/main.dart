@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
                   ),
             ),
           ),
-          home: AuthScreen(),
+          home: VerifyScreen(),
           routes: {
             MyRoutes.AuthRoute: (context) => AuthScreen(),
             MyRoutes.HomeRoute: (context) => HomeScreen(),
