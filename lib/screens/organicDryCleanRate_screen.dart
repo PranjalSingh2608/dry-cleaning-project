@@ -1,3 +1,4 @@
+import 'package:dry_cleaning/providers/premium_dry_clean.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,15 +6,14 @@ import 'package:provider/provider.dart';
 
 import '../providers/dry_clean.dart';
 
-class DryCleanRate extends StatelessWidget {
-  const DryCleanRate({super.key});
+class OrganicDryCleanRate extends StatelessWidget {
+  const OrganicDryCleanRate({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dailyWearData = Provider.of<DryCleans>(context).dailyWear;
-    final ethnicWearData = Provider.of<DryCleans>(context).ethnicWear;
-    final winterWearData = Provider.of<DryCleans>(context).winterWear;
-    final miscellaneousData = Provider.of<DryCleans>(context).miscellaneous;
+    final dailyWearData = Provider.of<PremiumDryCleans>(context).dailyWear;
+    final ethnicWearData = Provider.of<PremiumDryCleans>(context).ethnicWear;
+    final winterWearData = Provider.of<PremiumDryCleans>(context).winterWear;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -24,7 +24,7 @@ class DryCleanRate extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    'Dry Cleaning Service',
+                    'Organic Dry Cleaning Service',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -158,50 +158,6 @@ class DryCleanRate extends StatelessWidget {
                             Text(winterWearData[index].name),
                             Spacer(),
                             Text(winterWearData[index].price.toString()),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 30),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Miscelleneous',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.teal,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    semanticContainer: true,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    elevation: 5,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      padding: const EdgeInsets.all(10.0),
-                      itemCount: miscellaneousData.length,
-                      itemBuilder: (context, index) =>
-                          ChangeNotifierProvider.value(
-                        value: miscellaneousData[index],
-                        child: Row(
-                          children: [
-                            Text(miscellaneousData[index].name),
-                            Spacer(),
-                            Text(miscellaneousData[index].price.toString()),
                           ],
                         ),
                       ),

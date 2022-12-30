@@ -4,4 +4,6 @@ class MyRoutes {
   static String VerifyRoute = "/verify";
   static String RateRoute = "/rate";
   static String DryCleanRateRoute = "/dryCleanRate";
+  static String OrganicDryCleanRateRoute = "/organicdryCleanRate";
+  static String MiscRateRoute = "/miscRate";
 }

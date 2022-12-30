@@ -54,47 +54,236 @@ class RateScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Card(
-                elevation: 5.0,
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(
-                        "DryClean",
-                        style: TextStyle(color: Colors.grey),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5.0,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          "DryClean",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/dryCleanRate');
+                          },
+                        ),
                       ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.navigate_next),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/dryCleanRate');
-                        },
+                      ListTile(
+                        title: Text(
+                          "Organic DryClean",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, '/organicdryCleanRate');
+                          },
+                        ),
                       ),
-                    ),
-                    ListTile(
-                      title: Text(
-                        "Premium DryClean",
-                        style: TextStyle(color: Colors.grey),
+                      ListTile(
+                        title: Text(
+                          "Jacket/Shoe/Bag",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/miscRate');
+                          },
+                        ),
                       ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.navigate_next),
-                        onPressed: () {
-                          
-                        },
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(
-                        "Jacket/Shoe/Bag",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.navigate_next),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 10),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Washing Services',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5.0,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          "Wash & Iron",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        subtitle: Text(
+                          "Normal,Organic & Premium",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            //Navigator.pushNamed(context, '/dryCleanRate');
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          "Wash & Fold",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        subtitle: Text(
+                          "Normal & Organic",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            //Navigator.pushNamed(context, '/organicdryCleanRate');
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          "Specialized",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        subtitle: Text(
+                          "Curtain,Woolen & UG",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            //Navigator.pushNamed(context, '/miscRate');
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 10),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Steam Iron Services',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5.0,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          "Steam Iron",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            //Navigator.pushNamed(context, '/dryCleanRate');
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, top: 10),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'On Site Services',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5.0,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          "Carpet Cleaning",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        subtitle: Text(
+                          "For Details click here:",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            //Navigator.pushNamed(context, '/dryCleanRate');
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          "Sofa, Cushion & Mattress Cleaning",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        subtitle: Text(
+                          "For Details click here:",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.navigate_next),
+                          onPressed: () {
+                            //Navigator.pushNamed(context, '/dryCleanRate');
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

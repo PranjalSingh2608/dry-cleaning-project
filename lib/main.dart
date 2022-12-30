@@ -1,10 +1,16 @@
 import 'package:dry_cleaning/providers/auth.dart';
+import 'package:dry_cleaning/providers/bag.dart';
 import 'package:dry_cleaning/providers/dry_clean.dart';
+import 'package:dry_cleaning/providers/jacket.dart';
+import 'package:dry_cleaning/providers/premium_dry_clean.dart';
+import 'package:dry_cleaning/providers/shoe.dart';
 import 'package:dry_cleaning/screens/Auth_screen.dart';
 import 'package:dry_cleaning/screens/Home_screen.dart';
 import 'package:dry_cleaning/screens/Rate_screen.dart';
 import 'package:dry_cleaning/screens/Verify_screen.dart';
 import 'package:dry_cleaning/screens/dryCleanRate_screen.dart';
+import 'package:dry_cleaning/screens/misc_screen.dart';
+import 'package:dry_cleaning/screens/organicDryCleanRate_screen.dart';
 import 'package:dry_cleaning/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +32,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: Auth()),
         ChangeNotifierProvider(create:(context) =>DryCleans()),
+        ChangeNotifierProvider(create:(context) =>PremiumDryCleans()),
+        ChangeNotifierProvider(create:(context) =>Jackets()),
+        ChangeNotifierProvider(create:(context) =>Shoes()),
+        ChangeNotifierProvider(create:(context) =>Bags()),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
@@ -46,6 +56,8 @@ class MyApp extends StatelessWidget {
             MyRoutes.VerifyRoute:(context) => VerifyScreen(),
             MyRoutes.RateRoute:(context) => RateScreen(),
             MyRoutes.DryCleanRateRoute:(context) =>DryCleanRate(),
+            MyRoutes.OrganicDryCleanRateRoute:(context) =>OrganicDryCleanRate(),
+            MyRoutes.MiscRateRoute:(context) =>MiscRate(),
           },
         ),
       ),

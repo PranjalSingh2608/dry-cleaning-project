@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
 class PremiumDryClean with ChangeNotifier {
+  PremiumDryClean(this.name, this.price);
   final String name;
   final int count = 1;
   final double price;
-
-  PremiumDryClean(this.name, this.price);
+}
+class PremiumDryCleans with ChangeNotifier{
+  
   List<PremiumDryClean> dailyWear = [
     PremiumDryClean('SHIRT', 169),
     PremiumDryClean('T-SHIRT', 169),
