@@ -11,6 +11,9 @@ class DryCleanRate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dailyWearData = Provider.of<DryCleans>(context).dailyWear;
+    final ethnicWearData = Provider.of<DryCleans>(context).ethnicWear;
+    final winterWearData = Provider.of<DryCleans>(context).winterWear;
+    final miscellaneousData = Provider.of<DryCleans>(context).miscellaneous;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -31,18 +34,151 @@ class DryCleanRate extends StatelessWidget {
                   ),
                 ),
               ),
-              Card(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  padding: const EdgeInsets.all(10.0),
-                  itemCount: dailyWearData.length,
-                  itemBuilder: (context, index) => ChangeNotifierProvider.value(
-                    value: dailyWearData[index],
-                    child: ListTile(
-                      tileColor: Colors.grey,
-                      title: Text(dailyWearData[index].name),
-                      trailing: Text(dailyWearData[index].price.toString()),
+              SingleChildScrollView(
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: dailyWearData.length,
+                    itemBuilder: (context, index) =>
+                        ChangeNotifierProvider.value(
+                      value: dailyWearData[index],
+                      child: Row(
+                        children: [
+                          Text(dailyWearData[index].name),
+                          Spacer(),
+                          Text(dailyWearData[index].price.toString()),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 30),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Ethnic Wear',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.teal,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: ethnicWearData.length,
+                    itemBuilder: (context, index) =>
+                        ChangeNotifierProvider.value(
+                      value: ethnicWearData[index],
+                      child: Row(
+                        children: [
+                          Text(ethnicWearData[index].name),
+                          Spacer(),
+                          Text(ethnicWearData[index].price.toString()),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 30),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Winter Wear',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.teal,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: winterWearData.length,
+                    itemBuilder: (context, index) =>
+                        ChangeNotifierProvider.value(
+                      value: winterWearData[index],
+                      child: Row(
+                        children: [
+                          Text(winterWearData[index].name),
+                          Spacer(),
+                          Text(winterWearData[index].price.toString()),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 30),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Miscelleneous',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.teal,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  elevation: 5,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: miscellaneousData.length,
+                    itemBuilder: (context, index) =>
+                        ChangeNotifierProvider.value(
+                      value: miscellaneousData[index],
+                      child: Row(
+                        children: [
+                          Text(miscellaneousData[index].name),
+                          Spacer(),
+                          Text(miscellaneousData[index].price.toString()),
+                        ],
+                      ),
                     ),
                   ),
                 ),
