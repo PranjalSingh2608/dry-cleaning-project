@@ -1,3 +1,4 @@
+import 'package:dry_cleaning/screens/WashIronRate_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -142,7 +143,7 @@ class RateScreen extends StatelessWidget {
                         trailing: IconButton(
                           icon: Icon(Icons.navigate_next),
                           onPressed: () {
-                            //Navigator.pushNamed(context, '/dryCleanRate');
+                            Navigator.pushNamed(context, '/washIronRate');
                           },
                         ),
                       ),
@@ -158,7 +159,7 @@ class RateScreen extends StatelessWidget {
                         trailing: IconButton(
                           icon: Icon(Icons.navigate_next),
                           onPressed: () {
-                            //Navigator.pushNamed(context, '/organicdryCleanRate');
+                            Navigator.pushNamed(context, '/washFoldRate');
                           },
                         ),
                       ),
@@ -174,7 +175,7 @@ class RateScreen extends StatelessWidget {
                         trailing: IconButton(
                           icon: Icon(Icons.navigate_next),
                           onPressed: () {
-                            //Navigator.pushNamed(context, '/miscRate');
+                            Navigator.pushNamed(context, '/specialServiceRate');
                           },
                         ),
                       ),
@@ -215,7 +216,7 @@ class RateScreen extends StatelessWidget {
                         trailing: IconButton(
                           icon: Icon(Icons.navigate_next),
                           onPressed: () {
-                            //Navigator.pushNamed(context, '/dryCleanRate');
+                            Navigator.pushNamed(context, '/steamIronRate');
                           },
                         ),
                       ),
@@ -257,12 +258,6 @@ class RateScreen extends StatelessWidget {
                           "For Details click here:",
                           style: TextStyle(color: Colors.grey),
                         ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.navigate_next),
-                          onPressed: () {
-                            //Navigator.pushNamed(context, '/dryCleanRate');
-                          },
-                        ),
                       ),
                       ListTile(
                         title: Text(
@@ -272,12 +267,6 @@ class RateScreen extends StatelessWidget {
                         subtitle: Text(
                           "For Details click here:",
                           style: TextStyle(color: Colors.grey),
-                        ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.navigate_next),
-                          onPressed: () {
-                            //Navigator.pushNamed(context, '/dryCleanRate');
-                          },
                         ),
                       ),
                     ],

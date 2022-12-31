@@ -1,20 +1,18 @@
+import 'package:dry_cleaning/providers/steamIron.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/bag.dart';
-import '../providers/jacket.dart';
-import '../providers/shoe.dart';
-
-class MiscRate extends StatelessWidget {
-  const MiscRate({super.key});
+class SteamIronRate extends StatelessWidget {
+  const SteamIronRate({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final jacketData = Provider.of<Jackets>(context).jacket;
-    final shoeData = Provider.of<Shoes>(context).shoe;
-    final bagData = Provider.of<Bags>(context).bag;
+    final dailyWearData = Provider.of<SteamIrons>(context).dailyWear;
+    final ethnicWearData = Provider.of<SteamIrons>(context).ethnicWear;
+    final winterWearData = Provider.of<SteamIrons>(context).winterWear;
+    final miscellaneousData = Provider.of<SteamIrons>(context).miscellaneous;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -23,13 +21,14 @@ class MiscRate extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 30),
                 child: Container(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topLeft,
                   child: Text(
-                    'Jacket/Shoe/Bag',
+                    'Steam Iron Rates',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 25,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
@@ -39,7 +38,7 @@ class MiscRate extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Jacket Spa',
+                    'Daily Wear',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
@@ -62,15 +61,15 @@ class MiscRate extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       padding: const EdgeInsets.all(10.0),
-                      itemCount: jacketData.length,
+                      itemCount: dailyWearData.length,
                       itemBuilder: (context, index) =>
                           ChangeNotifierProvider.value(
-                        value: jacketData[index],
+                        value: dailyWearData[index],
                         child: Row(
                           children: [
-                            Text(jacketData[index].name),
+                            Text(dailyWearData[index].name),
                             Spacer(),
-                            Text(jacketData[index].price.toString()),
+                            Text(dailyWearData[index].price.toString()),
                           ],
                         ),
                       ),
@@ -83,7 +82,7 @@ class MiscRate extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Shoe Cleaning',
+                    'Ethnic Wear',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
@@ -106,15 +105,15 @@ class MiscRate extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       padding: const EdgeInsets.all(10.0),
-                      itemCount: shoeData.length,
+                      itemCount: ethnicWearData.length,
                       itemBuilder: (context, index) =>
                           ChangeNotifierProvider.value(
-                        value: shoeData[index],
+                        value: ethnicWearData[index],
                         child: Row(
                           children: [
-                            Text(shoeData[index].name),
+                            Text(ethnicWearData[index].name),
                             Spacer(),
-                            Text(shoeData[index].price.toString()),
+                            Text(ethnicWearData[index].price.toString()),
                           ],
                         ),
                       ),
@@ -127,7 +126,7 @@ class MiscRate extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Bag Cleaning',
+                    'Winter Wear',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontStyle: FontStyle.italic,
@@ -150,15 +149,59 @@ class MiscRate extends StatelessWidget {
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       padding: const EdgeInsets.all(10.0),
-                      itemCount: bagData.length,
+                      itemCount: winterWearData.length,
                       itemBuilder: (context, index) =>
                           ChangeNotifierProvider.value(
-                        value: bagData[index],
+                        value: winterWearData[index],
                         child: Row(
                           children: [
-                            Text(bagData[index].name),
+                            Text(winterWearData[index].name),
                             Spacer(),
-                            Text(bagData[index].price.toString()),
+                            Text(winterWearData[index].price.toString()),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 30),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Miscelleneous',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      color: Colors.teal,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    elevation: 5,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      padding: const EdgeInsets.all(10.0),
+                      itemCount: miscellaneousData.length,
+                      itemBuilder: (context, index) =>
+                          ChangeNotifierProvider.value(
+                        value: miscellaneousData[index],
+                        child: Row(
+                          children: [
+                            Text(miscellaneousData[index].name),
+                            Spacer(),
+                            Text(miscellaneousData[index].price.toString()),
                           ],
                         ),
                       ),

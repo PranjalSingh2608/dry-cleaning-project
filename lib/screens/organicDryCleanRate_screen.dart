@@ -22,13 +22,14 @@ class OrganicDryCleanRate extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 30),
                 child: Container(
-                  alignment: Alignment.center,
+                  alignment: Alignment.topLeft,
                   child: Text(
                     'Organic Dry Cleaning Service',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 25,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
