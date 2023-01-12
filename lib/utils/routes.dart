@@ -10,4 +10,5 @@ class MyRoutes {
   static String WashFoldRateRoute = "/washFoldRate";
   static String SpecialServiceRateRoute = "/specialServiceRate";
   static String SteamIronRateRoute = "/steamIronRate";
+  static String MapRoute = "/map";
 }

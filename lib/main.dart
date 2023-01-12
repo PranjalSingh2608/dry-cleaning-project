@@ -12,6 +12,7 @@ import 'package:dry_cleaning/screens/Verify_screen.dart';
 import 'package:dry_cleaning/screens/WashIronRate_screen.dart';
 import 'package:dry_cleaning/screens/WashfoldRate_screen.dart';
 import 'package:dry_cleaning/screens/dryCleanRate_screen.dart';
+import 'package:dry_cleaning/screens/map_screen.dart';
 import 'package:dry_cleaning/screens/miscRate_screen.dart';
 import 'package:dry_cleaning/screens/organicDryCleanRate_screen.dart';
 import 'package:dry_cleaning/screens/specialserviceRate_screen.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
                   ),
             ),
           ),
-          home: HomeScreen(),
+          home: MapScreen(),
           routes: {
             MyRoutes.AuthRoute: (context) => AuthScreen(),
             MyRoutes.HomeRoute: (context) => HomeScreen(),
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
             MyRoutes.WashFoldRateRoute:(context) =>WashFold(),
             MyRoutes.SpecialServiceRateRoute:(context) =>SpecialService(),
             MyRoutes.SteamIronRateRoute:(context) =>SteamIronRate(),
+            MyRoutes.MapRoute: ((context) => MapScreen()),
           },
         ),
       ),
