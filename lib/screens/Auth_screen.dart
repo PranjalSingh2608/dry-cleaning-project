@@ -9,11 +9,9 @@ import 'package:provider/provider.dart';
 
 import 'Verify_screen.dart';
 
-enum AuthMode { Signup, Login }
-
 class AuthScreen extends StatefulWidget {
-  static const routeName = '/auth';
-  static String verify = "";
+  //static const routeName = '/auth';
+  String verify = "";
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
@@ -28,7 +26,6 @@ class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   var countryCode = new TextEditingController();
   var phone = new TextEditingController();
-  AuthMode _authMode = AuthMode.Login;
   Map<String, String> authData = {
     'countryCode': '',
     'phone': '',
@@ -181,18 +178,18 @@ class _AuthScreenState extends State<AuthScreen> {
                               else
                                 InkWell(
                                   onTap: () async {
-                                    try {
-                                      Provider.of<Auth>(context, listen: false)
-                                          .phoneAuthentication('${countryCode.text + phone.text}')
-                                          .then((value) {
-                                        Navigator.pushNamed(context, '/verify');
-                                      });
-                                      print(
-                                          'ID is ' + Provider.of<Auth>(context, listen: false).id);
-                                    } on Exception catch (e) {
-                                      // TODO
-                                      print(e);
-                                    }
+                                    // try {
+                                    //   Provider.of<Auth>(context, listen: false)
+                                    //       .phoneAuthentication('${countryCode.text + phone.text}')
+                                    //       .then((value) {
+                                    //     Navigator.pushNamed(context, '/verify');
+                                    //   });
+                                    //   print(
+                                    //       'ID is ' + Provider.of<Auth>(context, listen: false).Id);
+                                    // } on Exception catch (e) {
+                                    //   // TODO
+                                    //   print(e);
+                                    // }
                                     await FirebaseAuth.instance
                                         .verifyPhoneNumber(
                                       phoneNumber:
@@ -203,13 +200,17 @@ class _AuthScreenState extends State<AuthScreen> {
                                           (FirebaseAuthException e) {},
                                       codeSent: (String verificationId,
                                           int? resendToken) {
-                                        AuthScreen.verify = verificationId;
-                                        Navigator.pushNamed(context, '/verify');
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                VerifyScreen(id: verificationId),
+                                          ),
+                                        );
                                       },
                                       codeAutoRetrievalTimeout:
                                           (String verificationId) {},
                                     );
-                                    print('Id is' + AuthScreen.verify);
                                   },
                                   child: AnimatedContainer(
                                     duration: Duration(milliseconds: 500),

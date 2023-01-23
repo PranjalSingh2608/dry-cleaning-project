@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 class Auth with ChangeNotifier {
   String? countryCode;
   String? phone;
-  String? Id;
+  String Id='';
   FirebaseAuth auth = FirebaseAuth.instance;
   Future<void> phoneAuthentication(String phonenumber) async {
     await FirebaseAuth.instance.verifyPhoneNumber(

@@ -3,6 +3,7 @@ import 'package:dry_cleaning/screens/Home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:pinput/pinput.dart';
@@ -10,13 +11,15 @@ import 'package:provider/provider.dart';
 import '../providers/auth.dart';
 
 class VerifyScreen extends StatefulWidget {
-  VerifyScreen({super.key});
+  String id;
+  VerifyScreen({required this.id});
   @override
   State<VerifyScreen> createState() => _VerifyScreenState();
 }
 
 class _VerifyScreenState extends State<VerifyScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
+  var code = "";
   void _showErrorDialog(String msg) {
     showDialog(
         context: context,
@@ -35,7 +38,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var code = "";
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
@@ -135,6 +137,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
                                 showCursor: true,
                                 onChanged: (value) {
                                   code = value;
+                                  print(code);
                                 },
                               ),
                               SizedBox(height: 25),
@@ -148,55 +151,30 @@ class _VerifyScreenState extends State<VerifyScreen> {
                                         );
                                       }));
                                   try {
-                                    Provider.of<Auth>(context, listen: false)
-                                        .verifyOTP(code)
+                                    print("code ${widget.id}");
+                                    PhoneAuthCredential credential =
+                                        await PhoneAuthProvider.credential(
+                                            verificationId:widget.id,
+                                            smsCode: code);
+
+                                    await auth
+                                        .signInWithCredential(credential)
                                         .then((value) {
                                       if (value != null) {
-                                        Navigator.pushReplacement(context,
+                                        print(value);
+                                        Navigator.push(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
                                           return HomeScreen();
                                         }));
                                       }
-                                      print('Value is'+value.toString());
                                     });
                                   } catch (e) {
+                                    print(e);
                                     const errorMessage =
                                         'Could not authenticate you. Please try again later.';
-                                    print('id is equal to' + Provider.of<Auth>(context, listen: false).id);
                                     _showErrorDialog(errorMessage);
-                                    print(e);
                                   }
-                                  // showDialog(
-                                  //     context: context,
-                                  //     builder: ((context) {
-                                  //       return Center(
-                                  //         child: CircularProgressIndicator(),
-                                  //       );
-                                  //     }));
-                                  // try {
-                                  //   PhoneAuthCredential credential =
-                                  //       PhoneAuthProvider.credential(
-                                  //           verificationId: AuthScreen.verify,
-                                  //           smsCode: code);
-
-                                  //   await auth
-                                  //       .signInWithCredential(credential)
-                                  //       .then((value) {
-                                  //     if (value != null) {
-                                  //       Navigator.pushReplacement(context,
-                                  //           MaterialPageRoute(
-                                  //               builder: (context) {
-                                  //         return HomeScreen();
-                                  //       }));
-                                  //     }
-                                  //     print('Value is' + value.toString());
-                                  //     print('id is equal to' +
-                                  //         AuthScreen.verify);
-                                  //   });
-                                  // } catch (e) {
-                                  //   print(e);
-                                  // }
                                 },
                                 child: AnimatedContainer(
                                   duration: Duration(milliseconds: 500),

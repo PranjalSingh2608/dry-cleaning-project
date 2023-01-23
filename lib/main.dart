@@ -7,6 +7,7 @@ import 'package:dry_cleaning/providers/shoe.dart';
 import 'package:dry_cleaning/providers/steamIron.dart';
 import 'package:dry_cleaning/screens/Auth_screen.dart';
 import 'package:dry_cleaning/screens/Home_screen.dart';
+import 'package:dry_cleaning/screens/Profile_screen.dart';
 import 'package:dry_cleaning/screens/Rate_screen.dart';
 import 'package:dry_cleaning/screens/Verify_screen.dart';
 import 'package:dry_cleaning/screens/WashIronRate_screen.dart';
@@ -18,6 +19,7 @@ import 'package:dry_cleaning/screens/organicDryCleanRate_screen.dart';
 import 'package:dry_cleaning/screens/specialserviceRate_screen.dart';
 import 'package:dry_cleaning/screens/steamIronRate_screen.dart';
 import 'package:dry_cleaning/utils/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: Auth()),
+        ChangeNotifierProvider(create:(create) =>Auth()),
         ChangeNotifierProvider(create:(context) =>DryCleans()),
         ChangeNotifierProvider(create:(context) =>PremiumDryCleans()),
         ChangeNotifierProvider(create:(context) =>Jackets()),
@@ -56,11 +58,12 @@ class MyApp extends StatelessWidget {
                   ),
             ),
           ),
-          home: MapScreen(),
+          initialRoute:FirebaseAuth.instance.currentUser!=null? '/home' : '/auth',
           routes: {
             MyRoutes.AuthRoute: (context) => AuthScreen(),
             MyRoutes.HomeRoute: (context) => HomeScreen(),
-            MyRoutes.VerifyRoute:(context) => VerifyScreen(),
+            MyRoutes.ProfileRoute: (context) => ProfileScreen(),
+            //MyRoutes.VerifyRoute:(context) => VerifyScreen(),
             MyRoutes.RateRoute:(context) => RateScreen(),
             MyRoutes.DryCleanRateRoute:(context) =>DryCleanRate(),
             MyRoutes.OrganicDryCleanRateRoute:(context) =>OrganicDryCleanRate(),

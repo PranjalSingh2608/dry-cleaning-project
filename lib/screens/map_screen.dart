@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dry_cleaning/models/location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -5,6 +7,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart' as http;
+
+import '../providers/storedata.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -14,6 +19,39 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  Future<List<StoreData>> getRequest() async {
+    //replace your restFull API here.
+    String url =
+        'https://dry-cleaning-b7a6b-default-rtdb.firebaseio.com/Store.json';
+    final response = await http.get(Uri.parse(url));
+
+    var responseData = json.decode(response.body);
+    print(responseData);
+    //Creating a list to store input data;
+    List<StoreData> stores = [];
+    responseData.values.forEach((value) {
+      StoreData store = StoreData(
+          id: value.toString(),
+          name: value['Name'],
+          phone: value['Phone'],
+          lat: value['Lat'],
+          lng: value['Long']);
+      stores.add(store);
+    });
+    setState(() {
+      stores.forEach((store) {
+        _markers.add(
+          Marker(
+            markerId: MarkerId(store.id.toString()),
+            position: LatLng(store.lat!.toDouble(), store.lng!.toDouble()),
+            infoWindow: InfoWindow(title: store.name, snippet: store.phone),
+          ),
+        );
+      });
+    });
+    return stores;
+  }
+
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -42,6 +80,12 @@ class _MapScreenState extends State<MapScreen> {
   Set<Marker> _markers = {};
   final LatLng currentLocation = LatLng(0, 0);
   @override
+  void initState() {
+    super.initState();
+    getRequest();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
@@ -61,16 +105,13 @@ class _MapScreenState extends State<MapScreen> {
               CameraPosition(
                   target: LatLng(position.latitude, position.longitude),
                   zoom: 14)));
-          _markers.clear();
+          //_markers.clear();
 
           _markers.add(
             Marker(
               markerId: const MarkerId('currentLocation'),
               position: LatLng(position.latitude, position.longitude),
-              infoWindow: InfoWindow(
-                title: 'Home',
-                snippet: 'Your Location'
-              ),
+              infoWindow: InfoWindow(title: 'Home', snippet: 'Your Location'),
             ),
           );
           setState(() {});
