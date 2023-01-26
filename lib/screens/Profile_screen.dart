@@ -19,22 +19,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: Card(
-                  semanticContainer: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
-                  elevation: 0.5,
-                  child: ListTile(
-                    tileColor: Colors.white,
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Profile",
-                        textScaleFactor: 1.2,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                child: ListTile(
+                  tileColor: Colors.white,
+                  title: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Profile",
+                      textScaleFactor: 1.2,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -119,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(1.0),
                           child: ListTile(
                             leading: Icon(Icons.shopping_bag),
                             trailing: IconButton(
@@ -137,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(1.0),
                           child: ListTile(
                             leading: Icon(Icons.book),
                             trailing: IconButton(
@@ -171,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(1.0),
                           child: ListTile(
                             leading: Icon(Icons.share),
                             trailing: IconButton(
@@ -189,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(1.0),
                           child: ListTile(
                             leading: Icon(Icons.info),
                             trailing: IconButton(
@@ -207,7 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(1.0),
                           child: ListTile(
                             leading: Icon(Icons.star),
                             trailing: IconButton(
@@ -234,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             tileColor: Colors.white,
                             title: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(1.0),
                               child: Text(
                                 "Log Out",
                                 textScaleFactor: 1.2,

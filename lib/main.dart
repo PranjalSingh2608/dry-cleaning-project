@@ -1,5 +1,6 @@
 import 'package:dry_cleaning/providers/auth.dart';
 import 'package:dry_cleaning/providers/bag.dart';
+import 'package:dry_cleaning/providers/cart.dart';
 import 'package:dry_cleaning/providers/dry_clean.dart';
 import 'package:dry_cleaning/providers/jacket.dart';
 import 'package:dry_cleaning/providers/premium_dry_clean.dart';
@@ -7,11 +8,13 @@ import 'package:dry_cleaning/providers/shoe.dart';
 import 'package:dry_cleaning/providers/steamIron.dart';
 import 'package:dry_cleaning/screens/Auth_screen.dart';
 import 'package:dry_cleaning/screens/Home_screen.dart';
+import 'package:dry_cleaning/screens/Order_screen.dart';
 import 'package:dry_cleaning/screens/Profile_screen.dart';
 import 'package:dry_cleaning/screens/Rate_screen.dart';
 import 'package:dry_cleaning/screens/Verify_screen.dart';
 import 'package:dry_cleaning/screens/WashIronRate_screen.dart';
 import 'package:dry_cleaning/screens/WashfoldRate_screen.dart';
+import 'package:dry_cleaning/screens/cart_screen.dart';
 import 'package:dry_cleaning/screens/dryCleanRate_screen.dart';
 import 'package:dry_cleaning/screens/map_screen.dart';
 import 'package:dry_cleaning/screens/miscRate_screen.dart';
@@ -25,7 +28,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -36,15 +39,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create:(create) =>Auth()),
-        ChangeNotifierProvider(create:(context) =>DryCleans()),
-        ChangeNotifierProvider(create:(context) =>PremiumDryCleans()),
-        ChangeNotifierProvider(create:(context) =>Jackets()),
-        ChangeNotifierProvider(create:(context) =>Shoes()),
-        ChangeNotifierProvider(create:(context) =>Bags()),
-        ChangeNotifierProvider(create:(context) =>SteamIrons()),
+        ChangeNotifierProvider(create: (create) => Auth()),
+        ChangeNotifierProvider(create: (context) => DryCleans()),
+        ChangeNotifierProvider(create: (create) => Cart()),
+        ChangeNotifierProvider(create: (context) => PremiumDryCleans()),
+        ChangeNotifierProvider(create: (context) => Jackets()),
+        ChangeNotifierProvider(create: (context) => Shoes()),
+        ChangeNotifierProvider(create: (context) => Bags()),
+        ChangeNotifierProvider(create: (context) => SteamIrons()),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(
@@ -58,21 +63,25 @@ class MyApp extends StatelessWidget {
                   ),
             ),
           ),
-          initialRoute:FirebaseAuth.instance.currentUser!=null? '/home' : '/auth',
+          initialRoute:
+              FirebaseAuth.instance.currentUser != null ? '/home' : '/auth',
           routes: {
             MyRoutes.AuthRoute: (context) => AuthScreen(),
             MyRoutes.HomeRoute: (context) => HomeScreen(),
             MyRoutes.ProfileRoute: (context) => ProfileScreen(),
             //MyRoutes.VerifyRoute:(context) => VerifyScreen(),
-            MyRoutes.RateRoute:(context) => RateScreen(),
-            MyRoutes.DryCleanRateRoute:(context) =>DryCleanRate(),
-            MyRoutes.OrganicDryCleanRateRoute:(context) =>OrganicDryCleanRate(),
-            MyRoutes.MiscRateRoute:(context) =>MiscRate(),
-            MyRoutes.WashIronRateRoute:(context) =>WashIron(),
-            MyRoutes.WashFoldRateRoute:(context) =>WashFold(),
-            MyRoutes.SpecialServiceRateRoute:(context) =>SpecialService(),
-            MyRoutes.SteamIronRateRoute:(context) =>SteamIronRate(),
+            MyRoutes.RateRoute: (context) => RateScreen(),
+            MyRoutes.DryCleanRateRoute: (context) => DryCleanRate(),
+            MyRoutes.OrganicDryCleanRateRoute: (context) =>
+                OrganicDryCleanRate(),
+            MyRoutes.MiscRateRoute: (context) => MiscRate(),
+            MyRoutes.WashIronRateRoute: (context) => WashIron(),
+            MyRoutes.WashFoldRateRoute: (context) => WashFold(),
+            MyRoutes.SpecialServiceRateRoute: (context) => SpecialService(),
+            MyRoutes.SteamIronRateRoute: (context) => SteamIronRate(),
             MyRoutes.MapRoute: ((context) => MapScreen()),
+            MyRoutes.OrderRoute: ((context) => OrderScreen()),
+            MyRoutes.CartRoute: ((context) => CartScreen()),
           },
         ),
       ),

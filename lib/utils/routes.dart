@@ -12,4 +12,6 @@ class MyRoutes {
   static String SteamIronRateRoute = "/steamIronRate";
   static String MapRoute = "/map";
   static String ProfileRoute = "/profile";
+  static String OrderRoute = "/order";
+  static String CartRoute = "/cart";
 }

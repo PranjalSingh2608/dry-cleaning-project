@@ -43,6 +43,14 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
+            leading: Icon(Icons.calendar_month),
+            title: Text('Place an order'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed('/order');
+            },
+          ),
+          Divider(),
+          ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: () {
