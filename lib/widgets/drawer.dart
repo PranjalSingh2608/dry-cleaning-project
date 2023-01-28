@@ -22,7 +22,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.man),
             title: Text('Account'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed('/profile');
+              Navigator.of(context).pushNamed('/profile');
             },
           ),
           Divider(),
@@ -30,7 +30,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.payment),
             title: Text('Rate Card'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed('/rate');
+              Navigator.of(context).pushNamed('/rate');
             },
           ),
           Divider(),
@@ -38,7 +38,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.location_city),
             title: Text('Stores'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed('/map');
+              Navigator.of(context).pushNamed('/map');
             },
           ),
           Divider(),
@@ -46,7 +46,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.calendar_month),
             title: Text('Place an order'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed('/order');
+              Navigator.of(context).pushNamed('/order');
             },
           ),
           Divider(),

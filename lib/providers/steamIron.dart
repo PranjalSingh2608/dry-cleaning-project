@@ -1,67 +1,68 @@
 import 'package:flutter/cupertino.dart';
 
-class SteamIron with ChangeNotifier{
+class SteamIron with ChangeNotifier {
+  final String id;
   final String name;
   final int count = 1;
   final double price;
 
-  SteamIron(this.name, this.price);
+  SteamIron(this.id,this.name, this.price);
 }
 
 class SteamIrons with ChangeNotifier {
   List<SteamIron> dailyWear = [
-    SteamIron('SHIRT', 39),
-    SteamIron('T-SHIRT', 39),
-    SteamIron('LADIES TOP', 50),
-    SteamIron('TROUSER', 50),
-    SteamIron('JEANS', 59),
-    SteamIron('SKIRT(HALF)', 70),
-    SteamIron('SKIRT(FULL)', 109),
-    SteamIron('DRESS', 89),
-    SteamIron('DRESS(DESIGNER)', 149),
-    SteamIron('JUMPSUIT', 79),
-    SteamIron('GOWN(PLAIN)', 159),
-    SteamIron('GOWN(MEDIUM)', 209),
-    SteamIron('GOWN(HEAVY)', 319),
-    SteamIron('KIDS DRESS', 50),
+    SteamIron('sidw1','SHIRT', 39),
+    SteamIron('sidw2','T-SHIRT', 39),
+    SteamIron('sidw3','LADIES TOP', 50),
+    SteamIron('sidw4','TROUSER', 50),
+    SteamIron('sidw5','JEANS', 59),
+    SteamIron('sidw6','SKIRT(HALF)', 70),
+    SteamIron('sidw7','SKIRT(FULL)', 109),
+    SteamIron('sidw8','DRESS', 89),
+    SteamIron('sidw9','DRESS(DESIGNER)', 149),
+    SteamIron('sidw10','JUMPSUIT', 79),
+    SteamIron('sidw11','GOWN(PLAIN)', 159),
+    SteamIron('sidw12','GOWN(MEDIUM)', 209),
+    SteamIron('sidw13','GOWN(HEAVY)', 319),
+    SteamIron('sidw14','KIDS DRESS', 50),
   ];
   List<SteamIron> ethnicWear = [
-    SteamIron('PAYJAMA/SALWAR/LEGGING', 39),
-    SteamIron('PLAZO PLAIN', 59),
-    SteamIron('PLAZO HEAVY', 119),
-    SteamIron('KURTA/KAMEEZ', 50),
-    SteamIron('BLOUSE', 39),
-    SteamIron('SAREE', 109),
-    SteamIron('SAREE M/H', 179),
-    SteamIron('GENTS SHERWANI', 249),
-    SteamIron('LEHNGA/GHAGRA(LIGHT)', 269),
-    SteamIron('LEHNGA HEAVY(BRIDAL)', 729),
-    SteamIron('CHOLI', 50),
+    SteamIron('siew1','PAYJAMA/SALWAR/LEGGING', 39),
+    SteamIron('siew2','PLAZO PLAIN', 59),
+    SteamIron('siew3','PLAZO HEAVY', 119),
+    SteamIron('siew4','KURTA/KAMEEZ', 50),
+    SteamIron('siew5','BLOUSE', 39),
+    SteamIron('siew6','SAREE', 109),
+    SteamIron('siew7','SAREE M/H', 179),
+    SteamIron('siew8','GENTS SHERWANI', 249),
+    SteamIron('siew9','LEHNGA/GHAGRA(LIGHT)', 269),
+    SteamIron('siew10','LEHNGA HEAVY(BRIDAL)', 729),
+    SteamIron('siew11','CHOLI', 50),
   ];
   List<SteamIron> winterWear = [
-    SteamIron('SWEAT-SHIRT', 79),
-    SteamIron('SWEATER-HALF', 59),
-    SteamIron('SWEATER-FULL', 89),
-    SteamIron('WAIST COAT', 79),
-    SteamIron('COAT', 109),
-    SteamIron('OVER COAT', 199),
-    SteamIron('JACKET(HALF)', 99),
-    SteamIron('JACKET(FULL)', 109),
-    SteamIron('SHAWL', 109),
-    SteamIron('SHAWL FANCY/PASHMINA', 159),
+    SteamIron('siww1','SWEAT-SHIRT', 79),
+    SteamIron('siww2','SWEATER-HALF', 59),
+    SteamIron('siww3','SWEATER-FULL', 89),
+    SteamIron('siww4','WAIST COAT', 79),
+    SteamIron('siww5','COAT', 109),
+    SteamIron('siww6','OVER COAT', 199),
+    SteamIron('siww7','JACKET(HALF)', 99),
+    SteamIron('siww8','JACKET(FULL)', 109),
+    SteamIron('siww9','SHAWL', 109),
+    SteamIron('siww10','SHAWL FANCY/PASHMINA', 159),
   ];
   List<SteamIron> miscellaneous = [
-    SteamIron('BEDSHEET(S)', 59),
-    SteamIron('BEDSHEET(D)', 109),
-    SteamIron('BED COVER', 129),
-    SteamIron('PILLOW COVER', 34),
-    SteamIron('CUSHION COVER', 39),
-    SteamIron('CURTAIN WINDOW', 79),
-    SteamIron('CURTAIN WINDOW LINING', 99),
-    SteamIron('CURTAIN DOOR', 109),
-    SteamIron('CURTAIN DOOR LINING', 139),
-    SteamIron('CURTAIN CEILING', 149),
-    SteamIron('CURTAIN CEILING LINING', 199),
-    SteamIron('CURTAIN NET', 109),
+    SteamIron('sim1','BEDSHEET(S)', 59),
+    SteamIron('sim2','BEDSHEET(D)', 109),
+    SteamIron('sim3','BED COVER', 129),
+    SteamIron('sim4','PILLOW COVER', 34),
+    SteamIron('sim5','CUSHION COVER', 39),
+    SteamIron('sim6','CURTAIN WINDOW', 79),
+    SteamIron('sim7','CURTAIN WINDOW LINING', 99),
+    SteamIron('sim8','CURTAIN DOOR', 109),
+    SteamIron('sim9','CURTAIN DOOR LINING', 139),
+    SteamIron('sim10','CURTAIN CEILING', 149),
+    SteamIron('sim11','CURTAIN CEILING LINING', 199),
+    SteamIron('sim12','CURTAIN NET', 109),
   ];
 }

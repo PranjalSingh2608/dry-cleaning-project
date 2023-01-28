@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 
 class Shoe with ChangeNotifier {
-  Shoe(this.name, this.price);
+  Shoe(this.id, this.name, this.price);
+  final String id;
   final String name;
   final int count = 1;
   final double price;
 }
-class Shoes with ChangeNotifier{
+
+class Shoes with ChangeNotifier {
   List<Shoe> shoe = [
-    Shoe('CHAPPAL', 119),
-    Shoe('BELLE', 299),
-    Shoe('SPORTS',379),
-    Shoe('BELLE DESIGNER', 359),
-    Shoe('LEATHER', 439),
-    Shoe('SUEDE',620),
-    Shoe('ANKLE', 879),
+    Shoe('s1','CHAPPAL', 119),
+    Shoe('s2','BELLE', 299),
+    Shoe('s3','SPORTS', 379),
+    Shoe('s4','BELLE DESIGNER', 359),
+    Shoe('s5','LEATHER', 439),
+    Shoe('s6','SUEDE', 620),
+    Shoe('s7','ANKLE', 879),
   ];
 }
