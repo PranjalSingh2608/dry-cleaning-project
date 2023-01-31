@@ -56,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Padding(
                           padding: const EdgeInsets.only(top: 20, bottom: 20),
                           child: Card(
-                            color: Color.fromARGB(255, 221, 226, 249),
+                            color: Colors.blue.shade50,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(

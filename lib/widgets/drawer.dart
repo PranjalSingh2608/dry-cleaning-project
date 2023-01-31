@@ -14,7 +14,19 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('My App'),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blue.withOpacity(0.5),
+                    Color.fromARGB(255, 34, 7, 237).withOpacity(0.9),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0, 1],
+                ),
+              ),
+            ),
             automaticallyImplyLeading: false,
           ),
           Divider(),

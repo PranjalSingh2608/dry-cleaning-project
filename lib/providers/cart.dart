@@ -43,7 +43,7 @@ class Cart with ChangeNotifier {
           (existingCartItem) => CartItem(
               id: existingCartItem.id,
               title: existingCartItem.title,
-              quantity: existingCartItem.quantity,
+              quantity:existingCartItem.quantity+1,
               price: existingCartItem.price));
     } else {
       _items!.putIfAbsent(
@@ -62,3 +62,4 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 }
+// how do I edit this code so that it updates the amount by 1 if i call the add item funtion again on same item
