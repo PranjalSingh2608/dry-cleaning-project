@@ -64,7 +64,8 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
               ),
-              Expanded(
+              Container(
+                height:300,
                 child: ListView.builder(
                   itemCount: cartData.itemCount,
                   itemBuilder: (context, index) => ci.CartItem(
@@ -84,7 +85,7 @@ class _CartScreenState extends State<CartScreen> {
                           .price
                           .toDouble()),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -92,4 +93,3 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 }
-//whats the problem in this code
