@@ -43,7 +43,7 @@ class RateScreen extends StatelessWidget {
                   child: Lottie.asset(
                       'assets/animations/ratecard_animation.json',
                       alignment: Alignment.center,
-                      fit: BoxFit.cover),
+                      fit: BoxFit.fill),
                 ),
               ),
               Padding(
@@ -246,7 +246,7 @@ class RateScreen extends StatelessWidget {
                     style: TextStyle(
                       fontFamily:
                           GoogleFonts.poppinsTextTheme().titleLarge.toString(),
-                          fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                       fontSize: 20,
                     ),

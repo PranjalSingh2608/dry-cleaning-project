@@ -87,6 +87,22 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Our Stores'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.blue.withOpacity(0.5),
+                Color.fromARGB(255, 34, 7, 237).withOpacity(0.9),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0, 1],
+            ),
+          ),
+        ),
+      ),
       body: GoogleMap(
         initialCameraPosition: initialCameraPosition,
         markers: _markers,

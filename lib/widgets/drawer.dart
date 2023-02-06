@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,8 +6,14 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
+  @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -31,7 +38,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.man),
+              leading: Icon(CupertinoIcons.profile_circled),
               title: Text('Account'),
               onTap: () {
                 Navigator.of(context).pushNamed('/profile');
@@ -39,7 +46,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.payment),
+              leading: Icon(CupertinoIcons.list_dash),
               title: Text('Rate Card'),
               onTap: () {
                 Navigator.of(context).pushNamed('/rate');
@@ -47,7 +54,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.location_city),
+              leading: Icon(CupertinoIcons.location_circle_fill),
               title: Text('Stores'),
               onTap: () {
                 Navigator.of(context).pushNamed('/map');
@@ -55,7 +62,7 @@ class AppDrawer extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.calendar_month),
+              leading: Icon(CupertinoIcons.check_mark_circled),
               title: Text('Place an order'),
               onTap: () {
                 Navigator.of(context).pushNamed('/order');
