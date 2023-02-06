@@ -8,7 +8,6 @@ import '../providers/cart.dart';
 class CartItem extends StatelessWidget {
   final String id;
   final double price;
-  final String? productId;
   final int quantity;
   final String title;
 
@@ -16,29 +15,21 @@ class CartItem extends StatelessWidget {
       {super.key,
       required this.id,
       required this.price,
-      required this.productId,
       required this.quantity,
       required this.title});
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(id),
-      background: Container(
-        color: Colors.red,
-        child: Icon(
-          Icons.delete,
-          color: Colors.white,
-          size: 40,
-        ),
-        alignment: Alignment.centerRight,
-        padding: EdgeInsets.only(right: 20),
-      ),
-      direction: DismissDirection.endToStart,
-      onDismissed: ((direction) {
-        Provider.of<Cart>(context, listen: false)
-            .removeItem(productId.toString());
-      }),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(
+              color: Colors.blue.shade500,
+            )),
+        elevation: 2.5,
         margin: EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 4,

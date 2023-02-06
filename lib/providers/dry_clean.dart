@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 class DryClean with ChangeNotifier{
   final String id;
   final String name;
-  final int count = 1;
+  final int count = 0;
   final double price;
 
   DryClean(this.id,this.name, this.price);
@@ -73,4 +73,5 @@ class DryCleans with ChangeNotifier {
     DryClean('dcm11','CURTAIN CEILING LINING', 399),
     DryClean('dcm12','CURTAIN NET', 209),
   ];
+
 }

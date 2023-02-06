@@ -6,38 +6,44 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
+import '../widgets/drawer.dart';
+
 class RateScreen extends StatelessWidget {
   const RateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Rate Card'),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.blue.withOpacity(0.5),
+                Color.fromARGB(255, 34, 7, 237).withOpacity(0.9),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0, 1],
+            ),
+          ),
+        ),
+      ),
+      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10, top: 30),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Rate Card',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.teal,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
-                  height: 200,
+                  height: 250,
                   width: double.infinity,
-                  child: Lottie.asset('assets/animations/rate_animation.json',
-                      alignment: Alignment.center, fit: BoxFit.cover),
+                  child: Lottie.asset(
+                      'assets/animations/ratecard_animation.json',
+                      alignment: Alignment.center,
+                      fit: BoxFit.cover),
                 ),
               ),
               Padding(
@@ -48,7 +54,9 @@ class RateScreen extends StatelessWidget {
                     'Dry Cleaning Services',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                      fontFamily:
+                          GoogleFonts.poppinsTextTheme().titleLarge.toString(),
                       color: Colors.black,
                       fontSize: 20,
                     ),
@@ -114,7 +122,9 @@ class RateScreen extends StatelessWidget {
                     'Washing Services',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontStyle: FontStyle.italic,
+                      fontFamily:
+                          GoogleFonts.poppinsTextTheme().titleLarge.toString(),
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                       fontSize: 20,
                     ),
@@ -191,7 +201,9 @@ class RateScreen extends StatelessWidget {
                     'Steam Iron Services',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontStyle: FontStyle.italic,
+                      fontFamily:
+                          GoogleFonts.poppinsTextTheme().titleLarge.toString(),
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                       fontSize: 20,
                     ),
@@ -232,7 +244,9 @@ class RateScreen extends StatelessWidget {
                     'On Site Services',
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontStyle: FontStyle.italic,
+                      fontFamily:
+                          GoogleFonts.poppinsTextTheme().titleLarge.toString(),
+                          fontWeight: FontWeight.bold,
                       color: Colors.black,
                       fontSize: 20,
                     ),

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class Badge extends StatelessWidget {
-  const Badge({Key? key, required this.child, required this.value, this.color});
+class WidgetBadge extends StatelessWidget {
+  const WidgetBadge({Key? key, required this.child, required this.value, this.color});
   final Widget child;
   final String value;
   final Color? color;

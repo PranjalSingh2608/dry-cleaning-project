@@ -72,7 +72,7 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
         actions: <Widget>[
           Consumer<Cart>(
-              builder: (context, value, child) => Badge(
+              builder: (context, value, child) => WidgetBadge(
                   child: IconButton(
                     icon: Icon(Icons.shopping_cart),
                     onPressed: () {
@@ -130,6 +130,10 @@ class _OrderScreenState extends State<OrderScreen> {
                             child: Row(
                               children: [
                                 Text(dryCleanData[index].name),
+                                // Text(
+                                //   '  x${dryCleanData[index].count}',
+                                //   style: TextStyle(color: Colors.grey),
+                                // ),
                                 Spacer(),
                                 IconButton(
                                   onPressed: () {

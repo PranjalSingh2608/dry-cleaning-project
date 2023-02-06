@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
+import 'package:vibration/vibration.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartItem {
   final String id;
@@ -11,6 +17,12 @@ class CartItem {
       required this.title,
       required this.quantity,
       required this.price});
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'quantity': quantity,
+        'price': price,
+      };
 }
 
 class Cart with ChangeNotifier {
@@ -31,29 +43,62 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void removeItem(String productId) {
-    _items!.remove(productId);
-    notifyListeners();
+  Future<void> saveTotalAmount() async {
+    final prefs = await SharedPreferences.getInstance();
+    var total = 0.0;
+    _items!.forEach((key, cartItem) {
+      total += cartItem.price * cartItem.quantity;
+    });
+    prefs.setDouble('totalAmount', total);
   }
 
-  void addItem(String productId, double price, String title) {
+  Future<double> loadTotalAmount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final total = prefs.getDouble('totalAmount') ?? 0.0;
+    return total;
+  }
+
+  void removeItem(String productId) async {
+    if (_items!.containsKey(productId)) {
+      if (_items![productId]!.quantity > 1) {
+        _items!.update(
+            productId,
+            (existingCartItem) => CartItem(
+                id: existingCartItem.id,
+                title: existingCartItem.title,
+                quantity: existingCartItem.quantity - 1,
+                price: existingCartItem.price));
+      } else {
+        _items!.remove(productId);
+      }
+      if (await Vibrate.canVibrate) {
+        Vibration.vibrate(duration: 100);
+      }
+      saveTotalAmount();
+      notifyListeners();
+    }
+  }
+
+  void addItem(String productId, double price, String title) async {
     if (_items!.containsKey(productId)) {
       _items!.update(
           productId,
           (existingCartItem) => CartItem(
               id: existingCartItem.id,
               title: existingCartItem.title,
-              quantity:existingCartItem.quantity+1,
+              quantity: existingCartItem.quantity + 1,
               price: existingCartItem.price));
     } else {
-      _items!.putIfAbsent(
-          productId,
-          (() => CartItem(
-              id: DateTime.now().toString(),
-              title: title,
-              price: price,
-              quantity: 1)));
+      _items![productId] = CartItem(
+          id: DateTime.now().toString(),
+          title: title,
+          price: price,
+          quantity: 1);
     }
+    if (await Vibrate.canVibrate) {
+      Vibration.vibrate(duration: 100);
+    }
+    saveTotalAmount();
     notifyListeners();
   }
 
@@ -62,4 +107,3 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 }
-// how do I edit this code so that it updates the amount by 1 if i call the add item funtion again on same item

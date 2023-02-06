@@ -65,25 +65,36 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ),
               Container(
-                height:300,
-                child: ListView.builder(
-                  itemCount: cartData.itemCount,
-                  itemBuilder: (context, index) => ci.CartItem(
-                      id: cartData.items.values.toList()[index].id.toString(),
-                      title: cartData.items.values
-                          .toList()[index]
-                          .title
-                          .toString(),
-                      productId:
-                          cartData.items.values.toList()[index].toString(),
-                      quantity: cartData.items.values
-                          .toList()[index]
-                          .quantity
-                          .toInt(),
-                      price: cartData.items.values
-                          .toList()[index]
-                          .price
-                          .toDouble()),
+                height: 600,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    elevation: 5.0,
+                    child: ListView.builder(
+                      itemCount: cartData.itemCount,
+                      itemBuilder: (context, index) => ci.CartItem(
+                          id: cartData.items.values
+                              .toList()[index]
+                              .id
+                              .toString(),
+                          title: cartData.items.values
+                              .toList()[index]
+                              .title
+                              .toString(),
+                          quantity: cartData.items.values
+                              .toList()[index]
+                              .quantity
+                              .toInt(),
+                          price: cartData.items.values
+                              .toList()[index]
+                              .price
+                              .toDouble()),
+                    ),
+                  ),
                 ),
               ),
             ],

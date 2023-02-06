@@ -27,7 +27,6 @@ class _MapScreenState extends State<MapScreen> {
 
     var responseData = json.decode(response.body);
     print(responseData);
-    //Creating a list to store input data;
     List<StoreData> stores = [];
     responseData.values.forEach((value) {
       StoreData store = StoreData(

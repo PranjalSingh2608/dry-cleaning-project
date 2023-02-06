@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 class SteamIron with ChangeNotifier {
   final String id;
   final String name;
-  final int count = 1;
+  final int count = 0;
   final double price;
 
   SteamIron(this.id,this.name, this.price);
