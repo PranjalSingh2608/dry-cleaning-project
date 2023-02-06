@@ -112,46 +112,44 @@ class _OrderScreenState extends State<OrderScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   elevation: 5.0,
-                  child: Expanded(
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      padding: const EdgeInsets.all(10.0),
-                      itemCount: dryCleanData.length,
-                      itemBuilder: (context, index) => Container(
-                        color: (index % 2 == 0)
-                            ? Colors.blue.shade50
-                            : Colors.white,
-                        child: ChangeNotifierProvider.value(
-                          value: dryCleanData[index],
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Text(dryCleanData[index].name),
-                                // Text(
-                                //   '  x${dryCleanData[index].count}',
-                                //   style: TextStyle(color: Colors.grey),
-                                // ),
-                                Spacer(),
-                                IconButton(
-                                  onPressed: () {
-                                    cartData.addItem(
-                                        dryCleanData[index].id,
-                                        dryCleanData[index].price,
-                                        dryCleanData[index].name);
-                                  },
-                                  icon: Icon(CupertinoIcons.add_circled),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    cartData.removeItem(dryCleanData[index].id);
-                                  },
-                                  icon: Icon(CupertinoIcons.minus_circle),
-                                ),
-                              ],
-                            ),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: dryCleanData.length,
+                    itemBuilder: (context, index) => Container(
+                      color: (index % 2 == 0)
+                          ? Colors.blue.shade50
+                          : Colors.white,
+                      child: ChangeNotifierProvider.value(
+                        value: dryCleanData[index],
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(dryCleanData[index].name),
+                              // Text(
+                              //   '  x${dryCleanData[index].count}',
+                              //   style: TextStyle(color: Colors.grey),
+                              // ),
+                              Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  cartData.addItem(
+                                      dryCleanData[index].id,
+                                      dryCleanData[index].price,
+                                      dryCleanData[index].name);
+                                },
+                                icon: Icon(CupertinoIcons.add_circled),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  cartData.removeItem(dryCleanData[index].id);
+                                },
+                                icon: Icon(CupertinoIcons.minus_circle),
+                              ),
+                            ],
                           ),
                         ),
                       ),
