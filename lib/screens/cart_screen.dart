@@ -60,6 +60,13 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
+                      TextButton(
+                        child: Text('Order Now',
+                            style: TextStyle(color:Colors.blue.shade200 )),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/place');
+                        },
+                      ),
                     ],
                   ),
                 ),

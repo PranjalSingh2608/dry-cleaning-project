@@ -9,6 +9,7 @@ import 'package:dry_cleaning/providers/steamIron.dart';
 import 'package:dry_cleaning/screens/Auth_screen.dart';
 import 'package:dry_cleaning/screens/Home_screen.dart';
 import 'package:dry_cleaning/screens/Order_screen.dart';
+import 'package:dry_cleaning/screens/cartSelection_screen.dart';
 import 'package:dry_cleaning/screens/Profile_screen.dart';
 import 'package:dry_cleaning/screens/Rate_screen.dart';
 import 'package:dry_cleaning/screens/Verify_screen.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
             MyRoutes.MapRoute: ((context) => MapScreen()),
             MyRoutes.OrderRoute: ((context) => OrderScreen()),
             MyRoutes.CartRoute: ((context) => CartScreen()),
+            MyRoutes.PlaceOrderRoute: ((context) => PlaceOrder()),
           },
         ),
       ),

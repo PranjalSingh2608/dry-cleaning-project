@@ -14,4 +14,5 @@ class MyRoutes {
   static String ProfileRoute = "/profile";
   static String OrderRoute = "/order";
   static String CartRoute = "/cart";
+  static String PlaceOrderRoute = "/place";
 }
