@@ -3,9 +3,11 @@ import 'package:dry_cleaning/providers/bag.dart';
 import 'package:dry_cleaning/providers/cart.dart';
 import 'package:dry_cleaning/providers/dry_clean.dart';
 import 'package:dry_cleaning/providers/jacket.dart';
+import 'package:dry_cleaning/providers/order.dart';
 import 'package:dry_cleaning/providers/premium_dry_clean.dart';
 import 'package:dry_cleaning/providers/shoe.dart';
 import 'package:dry_cleaning/providers/steamIron.dart';
+import 'package:dry_cleaning/providers/storedata.dart';
 import 'package:dry_cleaning/screens/Auth_screen.dart';
 import 'package:dry_cleaning/screens/Home_screen.dart';
 import 'package:dry_cleaning/screens/Order_screen.dart';
@@ -51,6 +53,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Shoes()),
         ChangeNotifierProvider(create: (context) => Bags()),
         ChangeNotifierProvider(create: (context) => SteamIrons()),
+        ChangeNotifierProvider(create: (context) => StoreData.empty()),
+        ChangeNotifierProvider(create: (context) => Order(),child: PlaceOrder(),),
       ],
       child: Consumer<Auth>(
         builder: (context, auth, _) => MaterialApp(

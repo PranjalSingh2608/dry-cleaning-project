@@ -34,7 +34,9 @@ class _MapScreenState extends State<MapScreen> {
           name: value['Name'],
           phone: value['Phone'],
           lat: value['Lat'],
-          lng: value['Long']);
+          lng: value['Long'],
+          address: value['address'],
+          );
       stores.add(store);
     });
     setState(() {

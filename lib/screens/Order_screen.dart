@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dry_cleaning/providers/order.dart';
+import 'package:dry_cleaning/providers/order.dart' as ord;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/cart.dart';
 import '../providers/order.dart';
 import '../providers/order.dart';
+import '../providers/storedata.dart';
 import '../widgets/drawer.dart';
 
 class PlaceOrder extends StatefulWidget {
@@ -23,6 +24,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
   String _storeId = "";
   String _userId = "";
   DateTime _pickupTime = DateTime.utc(1989, 11, 9);
+
   @override
   Widget build(BuildContext context) {
     final cartData = Provider.of<Cart>(context);
@@ -87,36 +89,46 @@ class _PlaceOrderState extends State<PlaceOrder> {
                       },
                     ),
                   ),
-                  DropdownButtonFormField(
-                    decoration: InputDecoration(labelText: 'Store'),
-                    items: [
-                      // Add stores as DropdownMenuItems
-                    ],
-                    onChanged: (value) => _storeId = value.toString(),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: 'User ID'),
-                    onSaved: (value) => _userId = value.toString(),
-                  ),
-                  ElevatedButton(
-                    child: Text('Choose Pickup Time'),
-                    onPressed: () async {
-                      final selectedTime = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                      );
-                      if (selectedTime != null) {
-                        setState(() {
-                          _pickupTime = DateTime(
-                              DateTime.now().year,
-                              DateTime.now().month,
-                              DateTime.now().day,
-                              selectedTime.hour,
-                              selectedTime.minute);
-                        });
-                      }
-                    },
-                  ),
+                  FutureBuilder(
+                      future: Provider.of<ord.Order>(context, listen: false)
+                          .getClosestStore(context),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final storeData = snapshot.data as StoreData;
+                          
+                          return Column(
+                            children: [
+                              TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'User ID'),
+                                onSaved: (value) => _userId = value.toString(),
+                              ),
+                              ElevatedButton(
+                                child: Text('Choose Pickup Time'),
+                                onPressed: () async {
+                                  final selectedTime = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                  );
+                                  if (selectedTime != null) {
+                                    setState(() {
+                                      _pickupTime = DateTime(
+                                          DateTime.now().year,
+                                          DateTime.now().month,
+                                          DateTime.now().day,
+                                          selectedTime.hour,
+                                          selectedTime.minute);
+                                    });
+                                  }
+                                },
+                              ),
+                            ],
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("Error: ${snapshot.error}");
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      }),
                 ],
               ),
             ),
