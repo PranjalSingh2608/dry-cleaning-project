@@ -115,7 +115,6 @@ class _PlaceOrderState extends State<PlaceOrder> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             final storeData = snapshot.data as StoreData;
-                            print(storeData.id);
                             return Column(
                               children: [
                                 SizedBox(

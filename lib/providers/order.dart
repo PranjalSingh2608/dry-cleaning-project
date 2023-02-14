@@ -17,6 +17,7 @@ class OrderItem {
   final DateTime pickupTime;
   final DateTime pickupDate;
   final DateTime orderTime;
+  final String phone;
   bool payment = false;
   bool pending = true;
   OrderItem({
@@ -30,6 +31,7 @@ class OrderItem {
     required this.pickupDate,
     required this.payment,
     required this.pending,
+    required this.phone
   });
   Map<String, dynamic> toMap() {
     return {
@@ -40,9 +42,10 @@ class OrderItem {
       'pickupTime': pickupTime,
       'orderTime': orderTime,
       'pickupDate': pickupDate,
-      'payment':payment,
-      'pending':pending,
-      'pickupAddress': pickupAddress
+      'payment': payment,
+      'pending': pending,
+      'pickupAddress': pickupAddress,
+      'phone':phone
     };
   }
 }
@@ -60,7 +63,7 @@ class Order with ChangeNotifier {
       });
     }
     List<OrderItem> orders = [];
-    final localaddress=await getAddressFromCoordinates();
+    final localaddress = await getAddressFromCoordinates();
     final order = OrderItem(
       orderId: DateTime.now().toString(),
       storeId:
@@ -71,8 +74,9 @@ class Order with ChangeNotifier {
       pickupDate: pickupDate,
       pending: true,
       payment: false,
-      pickupAddress:localaddress,
+      pickupAddress: localaddress,
       orderTime: DateTime.now(),
+      phone: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
     );
 
     await FirebaseFirestore.instance
