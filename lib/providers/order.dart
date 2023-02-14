@@ -1,6 +1,7 @@
 import 'package:dry_cleaning/providers/cart.dart';
 import 'package:dry_cleaning/providers/storedata.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
@@ -8,19 +9,21 @@ class OrderItem {
   final String orderId;
   final String storeId;
   final String userId;
+  final String pickupAddress;
   final List<CartItem> items;
   final DateTime pickupTime;
+  final DateTime pickupDate;
   final DateTime orderTime;
-  final String status;
-
+  bool pending = true;
   OrderItem({
     required this.orderId,
     required this.storeId,
     required this.userId,
+    required this.pickupAddress,
     required this.items,
     required this.pickupTime,
     required this.orderTime,
-    required this.status,
+    required this.pickupDate,
   });
   Map<String, dynamic> toMap() {
     return {
@@ -30,7 +33,8 @@ class OrderItem {
       'items': items,
       'pickupTime': pickupTime,
       'orderTime': orderTime,
-      'status': status,
+      'pickupDate': pickupDate.day,
+      'pickupAddress': pickupAddress
     };
   }
 }
@@ -73,9 +77,21 @@ class Order with ChangeNotifier {
       );
       if (distance < closestDistance) {
         closestDistance = distance;
-        closestStore = store;        
+        closestStore = store;
       }
     }
     return closestStore;
+  }
+
+  Future<String> getAddressFromCoordinates() async {
+    Position position = await Geolocator.getCurrentPosition();
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    Placemark place = placemarks[0];
+    String address =
+        "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
+
+    return address;
   }
 }

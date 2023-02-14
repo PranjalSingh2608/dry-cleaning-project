@@ -4,6 +4,8 @@ import 'package:dry_cleaning/providers/order.dart' as ord;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../providers/cart.dart';
@@ -24,10 +26,12 @@ class _PlaceOrderState extends State<PlaceOrder> {
   String _storeId = "";
   String _userId = "";
   DateTime _pickupTime = DateTime.utc(1989, 11, 9);
+  DateTime _pickupDate = DateTime.utc(1989, 11, 9);
 
   @override
   Widget build(BuildContext context) {
     final cartData = Provider.of<Cart>(context);
+    final orderData = Provider.of<ord.Order>(context);
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -55,6 +59,18 @@ class _PlaceOrderState extends State<PlaceOrder> {
               key: _formKey,
               child: Column(
                 children: [
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Cart Items',
+                      textScaleFactor: 1.2,
+                      style: TextStyle(
+                        fontFamily: GoogleFonts.poppinsTextTheme()
+                            .titleLarge
+                            .toString(),
+                      ),
+                    ),
+                  ),
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -89,40 +105,178 @@ class _PlaceOrderState extends State<PlaceOrder> {
                       },
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: FutureBuilder(
+                        future: Provider.of<ord.Order>(context, listen: false)
+                            .getClosestStore(context),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final storeData = snapshot.data as StoreData;
+                            print(storeData.id);
+                            return Column(
+                              children: [
+                                SizedBox(
+                                  height: 100,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          'Pickup Store:-',
+                                          textScaleFactor: 1.2,
+                                          style: TextStyle(
+                                            fontFamily:
+                                                GoogleFonts.poppinsTextTheme()
+                                                    .titleLarge
+                                                    .toString(),
+                                          ),
+                                        ),
+                                      ),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            side: BorderSide(
+                                              color: Colors.blue.shade500,
+                                            )),
+                                        child: ListTile(
+                                          title:
+                                              Text(storeData.name.toString()),
+                                          subtitle: Row(
+                                            children: [
+                                              Text(
+                                                  storeData.address.toString()),
+                                              Spacer(),
+                                              Text(storeData.phone.toString()),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("Error: ${snapshot.error}");
+                          }
+                          return Center(child: CircularProgressIndicator());
+                        }),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Pickup Time:-',
+                        textScaleFactor: 1.2,
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.poppinsTextTheme()
+                              .titleLarge
+                              .toString(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                        child: Text('Choose Pickup Time'),
+                        onPressed: () async {
+                          final selectedTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          );
+                          if (selectedTime != null) {
+                            setState(() {
+                              _pickupTime = DateTime(
+                                  DateTime.now().year,
+                                  DateTime.now().month,
+                                  DateTime.now().day,
+                                  selectedTime.hour,
+                                  selectedTime.minute);
+                            });
+                          }
+                        },
+                      ),
+                      Spacer(),
+                      Text(
+                        _pickupTime.hour.toString() +
+                            ':' +
+                            _pickupTime.minute.toString(),
+                        textScaleFactor: 1.2,
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.poppinsTextTheme()
+                              .bodySmall
+                              .toString(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Pickup Date:-',
+                        textScaleFactor: 1.2,
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.poppinsTextTheme()
+                              .titleLarge
+                              .toString(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                        child: Text('Choose Pickup Date'),
+                        onPressed: () async {
+                          final selectedDate = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2015, 8),
+                            lastDate: DateTime(2101),
+                          );
+                          if (selectedDate != null) {
+                            setState(() {
+                              _pickupDate = DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                              );
+                            });
+                          }
+                        },
+                      ),
+                      Spacer(),
+                      Text(
+                        _pickupDate.day.toString() +
+                            '/' +
+                            _pickupDate.month.toString() +
+                            '/' +
+                            _pickupDate.year.toString(),
+                        textScaleFactor: 1.2,
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.poppinsTextTheme()
+                              .bodySmall
+                              .toString(),
+                        ),
+                      ),
+                    ],
+                  ),
                   FutureBuilder(
                       future: Provider.of<ord.Order>(context, listen: false)
-                          .getClosestStore(context),
+                          .getAddressFromCoordinates(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          final storeData = snapshot.data as StoreData;
-                          
+                          print(snapshot.data);
                           return Column(
-                            children: [
-                              TextFormField(
-                                decoration:
-                                    InputDecoration(labelText: 'User ID'),
-                                onSaved: (value) => _userId = value.toString(),
-                              ),
-                              ElevatedButton(
-                                child: Text('Choose Pickup Time'),
-                                onPressed: () async {
-                                  final selectedTime = await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-                                  if (selectedTime != null) {
-                                    setState(() {
-                                      _pickupTime = DateTime(
-                                          DateTime.now().year,
-                                          DateTime.now().month,
-                                          DateTime.now().day,
-                                          selectedTime.hour,
-                                          selectedTime.minute);
-                                    });
-                                  }
-                                },
-                              ),
-                            ],
+                            children: [],
                           );
                         } else if (snapshot.hasError) {
                           return Text("Error: ${snapshot.error}");
