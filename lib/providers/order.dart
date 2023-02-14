@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dry_cleaning/providers/cart.dart';
 import 'package:dry_cleaning/providers/storedata.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,10 +13,11 @@ class OrderItem {
   final String storeId;
   final String userId;
   final String pickupAddress;
-  final List<CartItem> items;
+  final List<Map<String, dynamic>> items;
   final DateTime pickupTime;
   final DateTime pickupDate;
   final DateTime orderTime;
+  bool payment = false;
   bool pending = true;
   OrderItem({
     required this.orderId,
@@ -24,6 +28,8 @@ class OrderItem {
     required this.pickupTime,
     required this.orderTime,
     required this.pickupDate,
+    required this.payment,
+    required this.pending,
   });
   Map<String, dynamic> toMap() {
     return {
@@ -33,13 +39,54 @@ class OrderItem {
       'items': items,
       'pickupTime': pickupTime,
       'orderTime': orderTime,
-      'pickupDate': pickupDate.day,
+      'pickupDate': pickupDate,
+      'payment':payment,
+      'pending':pending,
       'pickupAddress': pickupAddress
     };
   }
 }
 
 class Order with ChangeNotifier {
+  void placeOrder(
+      DateTime pickupTime, DateTime pickupDate, BuildContext context) async {
+    final cartData = await Provider.of<Cart>(context, listen: false).items;
+    List<Map<String, dynamic>> cartitems = [];
+    for (var item in cartData.values) {
+      cartitems.add({
+        'itemName': item.title,
+        'itemPrice': item.price,
+        'itemQuantity': item.quantity,
+      });
+    }
+    List<OrderItem> orders = [];
+    final localaddress=await getAddressFromCoordinates();
+    final order = OrderItem(
+      orderId: DateTime.now().toString(),
+      storeId:
+          await getClosestStore(context).then((value) => value.id.toString()),
+      userId: FirebaseAuth.instance.currentUser!.uid,
+      items: cartitems,
+      pickupTime: pickupTime,
+      pickupDate: pickupDate,
+      pending: true,
+      payment: false,
+      pickupAddress:localaddress,
+      orderTime: DateTime.now(),
+    );
+
+    await FirebaseFirestore.instance
+        .collection('Orders')
+        .doc(order.orderId)
+        .set(order.toMap());
+    orders.add(order);
+    cartData.clear();
+  }
+
+  List<OrderItem> get orders {
+    return orders;
+  }
+
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -63,7 +110,8 @@ class Order with ChangeNotifier {
   }
 
   Future<StoreData> getClosestStore(BuildContext context) async {
-    final storeData = await Provider.of<StoreData>(context).getStores();
+    final storeData =
+        await Provider.of<StoreData>(context, listen: false).getStores();
     final position = await determinePosition();
     late StoreData closestStore;
     double closestDistance = double.infinity;

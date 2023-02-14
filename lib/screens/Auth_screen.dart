@@ -5,7 +5,9 @@ import 'package:dry_cleaning/providers/auth.dart';
 import 'package:dry_cleaning/providers/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
+import 'package:vibration/vibration.dart';
 
 import 'Verify_screen.dart';
 
@@ -178,18 +180,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               else
                                 InkWell(
                                   onTap: () async {
-                                    // try {
-                                    //   Provider.of<Auth>(context, listen: false)
-                                    //       .phoneAuthentication('${countryCode.text + phone.text}')
-                                    //       .then((value) {
-                                    //     Navigator.pushNamed(context, '/verify');
-                                    //   });
-                                    //   print(
-                                    //       'ID is ' + Provider.of<Auth>(context, listen: false).Id);
-                                    // } on Exception catch (e) {
-                                    //   // TODO
-                                    //   print(e);
-                                    // }
+                                    if (await Vibrate.canVibrate) {
+                                      Vibration.vibrate(duration: 100);
+                                    } 
                                     await FirebaseAuth.instance
                                         .verifyPhoneNumber(
                                       phoneNumber:
@@ -203,8 +196,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                VerifyScreen(id: verificationId),
+                                            builder: (context) => VerifyScreen(
+                                                id: verificationId),
                                           ),
                                         );
                                       },

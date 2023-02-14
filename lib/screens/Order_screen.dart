@@ -4,10 +4,12 @@ import 'package:dry_cleaning/providers/order.dart' as ord;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vibration/vibration.dart';
 import '../providers/cart.dart';
 import '../providers/order.dart';
 import '../providers/order.dart';
@@ -244,11 +246,8 @@ class _PlaceOrderState extends State<PlaceOrder> {
                           );
                           if (selectedDate != null) {
                             setState(() {
-                              _pickupDate = DateTime(
-                                DateTime.now().year,
-                                DateTime.now().month,
-                                DateTime.now().day,
-                              );
+                              _pickupDate = DateTime(selectedDate.year,
+                                  selectedDate.month, selectedDate.day);
                             });
                           }
                         },
@@ -276,13 +275,80 @@ class _PlaceOrderState extends State<PlaceOrder> {
                         if (snapshot.hasData) {
                           print(snapshot.data);
                           return Column(
-                            children: [],
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10, top: 10),
+                                child: Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Address:-',
+                                    textScaleFactor: 1.2,
+                                    style: TextStyle(
+                                      fontFamily: GoogleFonts.poppinsTextTheme()
+                                          .titleLarge
+                                          .toString(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10, bottom: 10),
+                                child: Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    snapshot.data.toString(),
+                                  ),
+                                ),
+                              ),
+                            ],
                           );
                         } else if (snapshot.hasError) {
                           return Text("Error: ${snapshot.error}");
                         }
                         return Center(child: CircularProgressIndicator());
                       }),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: InkWell(
+                      onTap: () async {
+                        if (await Vibrate.canVibrate) {
+                          Vibration.vibrate(duration: 100);
+                        }
+                        orderData.placeOrder(_pickupTime, _pickupDate, context);
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 500),
+                        width: MediaQuery.of(context).size.width,
+                        height: 50,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            "Place Order",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.blue.withOpacity(0.5),
+                                Color.fromARGB(255, 34, 7, 237)
+                                    .withOpacity(0.9),
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: [0, 1],
+                            ),
+                            borderRadius: BorderRadius.circular(40)),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
