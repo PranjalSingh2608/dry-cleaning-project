@@ -9,12 +9,14 @@ class StoreData with ChangeNotifier {
   final double? lat;
   final double? lng;
   final String? address;
+  final String? fcmToken;
   StoreData(
       {required this.id,
       required this.name,
       required this.phone,
       required this.lat,
       required this.address,
+      required this.fcmToken,
       required this.lng});
   StoreData.empty()
       : id = "",
@@ -22,7 +24,8 @@ class StoreData with ChangeNotifier {
         phone = "",
         lat = 0.0,
         lng = 0.0,
-        address = "";
+        address = "",
+        fcmToken="";
   Future<List<StoreData>> getStores() async {
     String url =
         'https://dry-cleaning-b7a6b-default-rtdb.firebaseio.com/Store.json';
@@ -37,6 +40,7 @@ class StoreData with ChangeNotifier {
         lat: value['Lat'],
         lng: value['Long'],
         address: value['address'],
+        fcmToken: value['fcmToken'],
       );
       stores.add(store);
     });

@@ -36,6 +36,7 @@ class _MapScreenState extends State<MapScreen> {
           lat: value['Lat'],
           lng: value['Long'],
           address: value['address'],
+          fcmToken: value['fcmToken'],
           );
       stores.add(store);
     });

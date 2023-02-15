@@ -115,6 +115,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             final storeData = snapshot.data as StoreData;
+                            print(storeData.fcmToken);
                             return Column(
                               children: [
                                 SizedBox(
@@ -312,10 +313,15 @@ class _PlaceOrderState extends State<PlaceOrder> {
                     padding: const EdgeInsets.all(10.0),
                     child: InkWell(
                       onTap: () async {
+                        final data =
+                            Provider.of<ord.Order>(context, listen: false)
+                                .getClosestStore(context);
+                        final token = data.then((value) => value.fcmToken);
                         if (await Vibrate.canVibrate) {
                           Vibration.vibrate(duration: 100);
                         }
                         orderData.placeOrder(_pickupTime, _pickupDate, context);
+                        orderData.sendNotification(token.toString());
                       },
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 500),

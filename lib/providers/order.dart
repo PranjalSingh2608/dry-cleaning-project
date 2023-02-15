@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dry_cleaning/providers/cart.dart';
 import 'package:dry_cleaning/providers/storedata.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http;
 class OrderItem {
   final String orderId;
   final String storeId;
@@ -18,6 +20,7 @@ class OrderItem {
   final DateTime pickupDate;
   final DateTime orderTime;
   final String phone;
+  final String fcmToken;
   bool payment = false;
   bool pending = true;
   OrderItem({
@@ -31,7 +34,8 @@ class OrderItem {
     required this.pickupDate,
     required this.payment,
     required this.pending,
-    required this.phone
+    required this.phone,
+    required this.fcmToken,
   });
   Map<String, dynamic> toMap() {
     return {
@@ -77,6 +81,8 @@ class Order with ChangeNotifier {
       pickupAddress: localaddress,
       orderTime: DateTime.now(),
       phone: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
+      fcmToken:
+          await getClosestStore(context).then((value) => value.fcmToken.toString()),
     );
 
     await FirebaseFirestore.instance
@@ -146,4 +152,29 @@ class Order with ChangeNotifier {
 
     return address;
   }
+  Future<void> sendNotification(String fcmToken) async {
+  final response = await http.post(
+    Uri.parse('https://fcm.googleapis.com/fcm/send'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Authorization': 'key=AAAAzmgnJhA:APA91bE15JjYYGgpHAl4vfz5qECnaVQ1n5Zep7XVNtkDnLut6sLaHgs8tAbYfjssIFCo6-nPUQrmzRPtgwZVUcMc2fvitHyuy_awpttvSK3uQAPR4Jdogg6XyGyuOYbDL1MQsJZ3iTPs',
+    },
+    body: jsonEncode(
+      <String, dynamic>{
+        'notification': <String, dynamic>{
+          'title': 'New order placed',
+          'body': 'A new order has been placed at your store',
+          'sound': 'default',
+        },
+        'priority': 'high',
+        'data': <String, dynamic>{
+          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+          'id': '1',
+          'status': 'done'
+        },
+        'to': fcmToken,
+      },
+    ),
+  );
+}
 }
