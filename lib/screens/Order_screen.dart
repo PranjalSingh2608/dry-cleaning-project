@@ -321,7 +321,7 @@ class _PlaceOrderState extends State<PlaceOrder> {
                           Vibration.vibrate(duration: 100);
                         }
                         orderData.placeOrder(_pickupTime, _pickupDate, context);
-                        orderData.sendNotification(token.toString());
+                        
                       },
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 500),
