@@ -34,7 +34,7 @@ class StoreData with ChangeNotifier {
     List<StoreData> stores = [];
     responseData.values.forEach((value) {
       StoreData store = StoreData(
-        id: value.toString(),
+        id: value['id'],
         name: value['Name'],
         phone: value['Phone'],
         lat: value['Lat'],

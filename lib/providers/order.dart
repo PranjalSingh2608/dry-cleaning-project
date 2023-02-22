@@ -152,29 +152,4 @@ class Order with ChangeNotifier {
 
     return address;
   }
-  Future<void> sendNotification(String fcmToken) async {
-  final response = await http.post(
-    Uri.parse('https://fcm.googleapis.com/fcm/send'),
-    headers: <String, String>{
-      'Content-Type': 'application/json',
-      'Authorization': 'key=AAAAzmgnJhA:APA91bE15JjYYGgpHAl4vfz5qECnaVQ1n5Zep7XVNtkDnLut6sLaHgs8tAbYfjssIFCo6-nPUQrmzRPtgwZVUcMc2fvitHyuy_awpttvSK3uQAPR4Jdogg6XyGyuOYbDL1MQsJZ3iTPs',
-    },
-    body: jsonEncode(
-      <String, dynamic>{
-        'notification': <String, dynamic>{
-          'title': 'New order placed',
-          'body': 'A new order has been placed at your store',
-          'sound': 'default',
-        },
-        'priority': 'high',
-        'data': <String, dynamic>{
-          'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-          'id': '1',
-          'status': 'done'
-        },
-        'to': fcmToken,
-      },
-    ),
-  );
-}
 }
